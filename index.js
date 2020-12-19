@@ -27,7 +27,7 @@ const app = express();
 
 //OTHER IMPORTS
 const morgan = require("morgan");
-const wordRouter = require("./controllers/word");
+const holdingRouter = require("./controllers/holding");
 
 ////////////
 //MIDDLEWARE
@@ -39,21 +39,14 @@ app.use(morgan("tiny")); //logging
 ///////////////
 //Routes and Routers
 //////////////
-//Route for testing server is working
-// app.get("/", (req, res) => {
-//   res.json({ hello: "Hello World!" });
-// });
-
-// Word Routes send to dog router
-
-// // //Auth router
-// app.get('/', auth, (req, res) => {
-//   res.json(req.payload)
-// })
 
 app.use("/auth", AuthRouter);
 
-app.use("/word", auth, wordRouter);
+app.use(
+  "/holdings",
+  //auth,
+  holdingRouter
+);
 //LISTENER
 app.listen(PORT, () => {
   console.log(`Your are listening on port ${PORT}`);
