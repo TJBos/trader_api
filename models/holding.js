@@ -13,7 +13,6 @@ const holdingSchema = new Schema(
   { timestamps: true }
 );
 
-//DOG MODEL
 const Holding = model("holding", holdingSchema);
 
 //EXPORT MODEL
