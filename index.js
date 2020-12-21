@@ -31,6 +31,7 @@ const app = express();
 const morgan = require("morgan");
 const holdingRouter = require("./controllers/holding");
 const searchRouter = require("./controllers/search");
+const quoteRouter = require("./controllers/quote");
 
 ////////////
 //MIDDLEWARE
@@ -45,6 +46,7 @@ app.use(morgan("tiny")); //logging
 
 app.use("/auth", AuthRouter);
 app.use("/search", searchRouter);
+app.use("/quote", quoteRouter);
 app.use(
   "/holdings",
   //auth,
