@@ -4,7 +4,7 @@ require("dotenv").config();
 const fetch = require("node-fetch");
 const { API_KEY } = process.env;
 
-//this is a TEST for the Redis caching**
+//This API call uses Redis caching
 const redis = require("redis");
 const redisPort = 6379;
 const client = redis.createClient(redisPort);

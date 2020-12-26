@@ -3,3 +3,4 @@ env.yaml
 .env
 development.yaml
 production.yaml
+secrets.py
