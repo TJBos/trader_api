@@ -2,13 +2,14 @@ const { Router } = require("express");
 const router = Router();
 require("dotenv").config();
 const { PythonShell } = require("python-shell");
+const preload = require("./preload.json");
+const _ = require("lodash");
 
 router.get("/", (req, res, next) => {
-  //Here are the option object in which arguments can be passed for the python_test.js.
   let options = {
     mode: "text",
-    pythonOptions: ["-u"], // get print results in real-time
-    scriptPath: "./py_files", //If you are having python_test.py script in same folder, then it's optional.
+    pythonOptions: ["-u"],
+    scriptPath: "./py_files",
   };
 
   PythonShell.run("momentum.py", options, function (err, result) {
@@ -18,6 +19,14 @@ router.get("/", (req, res, next) => {
     console.log("result printed");
     res.send(result.toString());
   });
+});
+
+router.get("/preload", (req, res) => {
+  const fixed = {};
+  _.forOwn(preload, function (value, key, object) {
+    fixed[key] = _.values(value);
+  });
+  res.send(fixed);
 });
 
 module.exports = router;

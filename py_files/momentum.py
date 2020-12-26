@@ -25,7 +25,7 @@ ticker_strings = []
 for i in range(0, len(ticker_groups)):
     ticker_strings.append(','.join(ticker_groups[i]))
 
-
+#free sandbox testing token -- not real results!
 API_TOKEN = "Tpk_a26bd448ca294eebb8499ceb5df09dbc"
 
 
@@ -48,6 +48,7 @@ columns = [
 
 dataframe = pd.DataFrame(columns = columns)
 
+#make batch API call and populate DF with API data
 for tickers in ticker_strings:
     batch_api_call_url = f'https://sandbox.iexapis.com/stable/stock/market/batch/?types=stats,quote&symbols={tickers}&token={API_TOKEN}'
     data = requests.get(batch_api_call_url).json()
@@ -71,7 +72,7 @@ for tickers in ticker_strings:
         
       
 
-
+#Calculate the percentiles using stats method percentileofscore
 time_periods = [
                 'One-Year',
                 'Six-Month',
@@ -90,6 +91,7 @@ for row in dataframe.index:
 pd.set_option('display.max_columns', None)
 #display(dataframe)
 
+#calculate the final score by averaging the percentiles
 from statistics import mean
 
 for row in dataframe.index:
@@ -98,9 +100,11 @@ for row in dataframe.index:
         momentum_percentiles.append(dataframe.loc[row, f'{time_period} Return Percentile'])
     dataframe.loc[row, 'HQM Score'] = mean(momentum_percentiles)
 
+#sort by best scores and slice the first 20 off
 dataframe.sort_values(by = 'HQM Score', ascending = False, inplace= True)
 dataframe = dataframe[:21]
 dataframe.reset_index(drop = True, inplace = True)
+#change to json
 json = dataframe.to_json()
 print(json)
 
