@@ -3,11 +3,12 @@ const router = Router();
 require("dotenv").config();
 const fetch = require("node-fetch");
 const { API_KEY } = process.env;
+const { REDIS_URL } = process.env;
 
-//This API call uses Redis caching
+//This API call uses Redis caching //change URL for deployment
 const redis = require("redis");
 const redisPort = 6379;
-const client = redis.createClient(redisPort);
+const client = redis.createClient(REDIS_URL);
 client.on("error", (err) => console.log(err));
 
 router.get("/:id", (req, res) => {
