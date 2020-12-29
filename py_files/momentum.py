@@ -32,19 +32,19 @@ API_TOKEN = "Tpk_a26bd448ca294eebb8499ceb5df09dbc"
 #api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={api_token}'
 
 columns = [
-                'Ticker', 
-                'Price', 
-                'Number of Shares to Buy', 
-                'One-Year Price Return', 
-                'One-Year Return Percentile',
-                'Six-Month Price Return',
-                'Six-Month Return Percentile',
-                'Three-Month Price Return',
-                'Three-Month Return Percentile',
-                'One-Month Price Return',
-                'One-Month Return Percentile',
-                'HQM Score'
-                ]
+            'Ticker', 
+            'Price', 
+            'Number of Shares to Buy', 
+            'One-Year Price Return', 
+            'One-Year Return Percentile',
+            'Six-Month Price Return',
+            'Six-Month Return Percentile',
+            'Three-Month Price Return',
+            'Three-Month Return Percentile',
+            'One-Month Price Return',
+            'One-Month Return Percentile',
+            'Momentum Score'
+        ]
 
 dataframe = pd.DataFrame(columns = columns)
 
@@ -98,10 +98,10 @@ for row in dataframe.index:
     momentum_percentiles = []
     for time_period in time_periods:
         momentum_percentiles.append(dataframe.loc[row, f'{time_period} Return Percentile'])
-    dataframe.loc[row, 'HQM Score'] = mean(momentum_percentiles)
+    dataframe.loc[row, 'Momentum Score'] = mean(momentum_percentiles)
 
 #sort by best scores and slice the first 20 off
-dataframe.sort_values(by = 'HQM Score', ascending = False, inplace= True)
+dataframe.sort_values(by = 'Momentum Score', ascending = False, inplace= True)
 dataframe = dataframe[:21]
 dataframe.reset_index(drop = True, inplace = True)
 #change to json

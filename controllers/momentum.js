@@ -16,8 +16,12 @@ router.get("/", (req, res, next) => {
     if (err) throw err;
     // result is an array consisting of messages collected
     //during execution of script.
-    console.log("result printed");
-    res.send(result.toString());
+    const fixed = {};
+    _.forOwn(result, function (value, key, object) {
+      fixed[key] = _.values(value);
+    });
+    res.send(fixed);
+    //res.send(result.toString());
   });
 });
 
