@@ -1,4 +1,3 @@
-//Add your frontend url as a string to the whitelist to enable security
 var whitelist = ["http://localhost:3000"];
 var corsOptions = {
   origin: function (origin, callback) {

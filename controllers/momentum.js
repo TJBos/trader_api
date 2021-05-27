@@ -25,6 +25,7 @@ router.get("/", (req, res, next) => {
   });
 });
 
+//TEST
 router.get("/preload", (req, res) => {
   const fixed = {};
   _.forOwn(preload, function (value, key, object) {
